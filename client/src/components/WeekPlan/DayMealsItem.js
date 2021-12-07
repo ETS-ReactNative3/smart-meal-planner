@@ -6,6 +6,7 @@ import Add from './Add';
 import Confirm from './Confirm';
 import useMealsItemMode from '../../hooks/useMealsItemMode';
 
+//componet rendered for each day - varies depending on the mode state
 export default function DayMealsItem(props) {
 
   const { meal, mealType, dayOfWeek, removeMeal } = props;
@@ -15,6 +16,8 @@ export default function DayMealsItem(props) {
   const SHOW = "SHOW";
   const CONFIRM = "CONFIRM";
   const LOAD = "LOAD";
+
+  //hook to handle changing from one mode to another
   const { mode, transition, back } = useMealsItemMode(ADD);
 
   //If a meal is available transition to the show mode
@@ -27,12 +30,12 @@ export default function DayMealsItem(props) {
     transition(LOAD);
     removeMeal(mealType, dayOfWeek)
       .then(() => {
-        console.log("after remove meal")
+        //after a meal is removed, transition back to empty "add" state
         transition(ADD);
       });
   };
 
-  //conditionally render the mode
+  //conditionally render different components depending on the state of mode
   return (
     <Grid container justifyContent="center">
 

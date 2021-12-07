@@ -3,10 +3,14 @@ import { Grid, Typography } from '@mui/material';
 import DayMealsItem from './DayMealsItem'
 import { DayMealItemPaper } from '../../customstyles/DayMealItemPaper';
 
+//component rendered for each day of the week, maps through daily meals and renders
+//the meal item subcomponent
 export default function DayMeals(props) {
+  
   const mealTypes = ["breakfast", "lunch", "dinner"];
   const { meals, dayOfWeek, removeMeal } = props;
 
+  //refactor could migrate in-line prop styling to styled components format for more modularity
   return (
     <Grid sx={{ paddingBottom: "20px" }}>
       <Grid>

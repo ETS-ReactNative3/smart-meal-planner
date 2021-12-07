@@ -1,18 +1,21 @@
 import { useState } from 'react'
 
+//hook used to manage the meal item display state
+//controls the functionality to change the mode such as the confirm, add, or show modes
 export default function useMealsItemMode(modeInit) {
   
   const [mode, setMode] = useState(modeInit);
   const [history, setHistory] = useState([modeInit])
   let updatedHistory = [...history];
 
+  //move to a new mode and keep track of the mode history in an array
   const transition = (modeInit, replace = false) => {
     if(replace) {
       updatedHistory.splice(-1, 1, modeInit);
     } 
     
     if (!replace) {
-      //this is pushing an array into the array. fix this bug
+      
       updatedHistory.push(modeInit);
     }
     

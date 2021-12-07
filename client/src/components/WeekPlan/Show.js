@@ -5,11 +5,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Link } from "react-router-dom";
 
+//component that displays the recipe if one has been selected for a particular day
 export default function DayMealsItem(props) {
 
   const { meal, mealType, onRemove, dayOfWeek } = props
+
+  //context to keep track of which day is selected
   const { setDayInformation } = useContext(mealContext);
 
+  // refactor should migrate prop styling to styled components where applicable
   return (
     <Grid container >
 

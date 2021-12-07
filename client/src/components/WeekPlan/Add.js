@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Link } from "react-router-dom";
 import { mealContext } from '../../providers/MealProvider';
 
+//empty day with no meals - renders a plus sign signifying the user to add a recipe to the plan
 export default function Load(props) {
 
   const { mealType, dayOfWeek } = props

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Button, Typography } from '@mui/material';
 
+//give user a chance to cancel or confirm their delete action
 export default function Confirm(props) {
 
   const { onConfirm, onCancel } = props
