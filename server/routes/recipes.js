@@ -5,70 +5,6 @@ const { formatMealDays } = require("./routesHelpers");
 
 module.exports = (db) => {
 
-  // https://api.spoonacular.com/recipes/complexSearch?apiKey=44f44a53a6e64445a1156824595d2c98&query=pasta&number=2
-  // search for a recipe using keywords
-  // http://localhost:4000/api/recipes?search=Nachos%20Grande
-  // router.get("/", (req, res) => {
-
-  //   const userId = req.cookies["user_id"];
-  //   let recipeStore = [];
-  //   // let recipeSend = []; //for sort function
-  //   let searchTerm = `&query=${req.query.search}`;
-  //   let numberDisplayed = `&number=5`;
-  //   let favouritesArray = [];
-
-  //   db.getFavourites(userId)
-  //     .then((favourites) => {
-  //       favouritesArray = favourites.map((fav) => {
-  //         return fav.spoonacular_id;
-  //       })
-  //       return axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.API_KEY}${searchTerm}${numberDisplayed}`);
-  //     })
-  //     .then((response) => {
-  //       recipeStore = response.data.results;
-  //       let recipeIds = [];
-  //       for (const recipe of recipeStore) {
-  //         recipeIds.push(recipe.id);
-  //       }
-  //       return recipeIds;
-  //     })
-  //     .then((recipeIds) => {
-  //       // if it finds no recipes, gives [] to this section
-  //       let ids = recipeIds.join(",");
-  //       if (recipeIds.length > 0) {
-
-  //         // [ 646545, 633876, 638784 ]
-  //         // https://api.spoonacular.com/recipes/informationBulk?apiKey=44f44a53a6e64445a1156824595d2c98&ids=638784
-  //         return axios.get(`https://api.spoonacular.com/recipes/informationBulk?apiKey=${process.env.API_KEY}&ids=${ids}`);
-  //       }
-  //     })
-  //     .then((allRecipeInfo) => {
-
-  //       if (allRecipeInfo) {
-
-  //         for (const recipeDietery in allRecipeInfo.data) {
-  //           let dieteryRestrictions = {};
-  //           dieteryRestrictions.vegan = allRecipeInfo.data[recipeDietery].vegan;
-  //           dieteryRestrictions.glutenFree = allRecipeInfo.data[recipeDietery].glutenFree;
-  //           dieteryRestrictions.dairyFree = allRecipeInfo.data[recipeDietery].dairyFree;
-  //           dieteryRestrictions.vegetarian = allRecipeInfo.data[recipeDietery].vegetarian;
-  //           recipeStore[recipeDietery].dieteryRestrictions = dieteryRestrictions;
-
-  //           if (favouritesArray.includes(allRecipeInfo.data[recipeDietery].id)) {
-  //             recipeStore[recipeDietery].favourite = true;
-  //           } else {
-  //             recipeStore[recipeDietery].favourite = false;
-  //           }
-
-  //         }
-  //       }
-  //       res.send(recipeStore);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // });
-
   // looking at a specific recipe using its spoonacular id 663641 648279
   // http://localhost:4000/api/recipes/715594
   router.get("/:id", (req, res) => {
@@ -100,7 +36,8 @@ module.exports = (db) => {
       .then((response) => {
 
         for (const ingredient of response.data.extendedIngredients) {
-          ingredientArray.push(ingredient["originalString"]);
+          // changed from originalString to original
+          ingredientArray.push(ingredient["original"]);
         }
 
         title = response.data.title;

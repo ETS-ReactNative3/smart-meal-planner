@@ -1,13 +1,6 @@
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME
-});
-
-
+const { Pool } = require("pg");
+const dbParams = require("../lib/db.js");
+const pool = new Pool(dbParams);
 
 const getUserDetails = function (userId) {
 
@@ -38,9 +31,9 @@ const generateGroceryList = function (ingredientObject, userId, week, ingredient
   // if ingredientObject's id is inside ingredients convert (they also have it in their pantry)
   if (ingredientsToConvert.includes(ingredientObject.ingredientId)) {
     // set amount and unit of measure from the ingredientToValidate obj, unless it is negative
-    console.log("ingredients to convert", ingredientsToConvert)
-    console.log("ingrdeintsToValidate", ingredientsToValidate)
-    console.log("INSPECTING ID", ingredientObject.ingredientId)
+    // console.log("ingredients to convert", ingredientsToConvert)
+    // console.log("ingrdeintsToValidate", ingredientsToValidate)
+    // console.log("INSPECTING ID", ingredientObject.ingredientId)
     if (ingredientsToValidate[ingredientObject.ingredientId].resultingSubtraction <= 0) {
       return;
     }

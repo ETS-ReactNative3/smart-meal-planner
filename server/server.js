@@ -6,32 +6,20 @@ const PORT = process.env.PORT || 4000;
 const express = require("express");
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// app.use(express.static("public"));
 
 const morgan = require("morgan");
-
-// const cors = require('cors');
-// app.use(cors());
+app.use(morgan("dev"));
 
 //cookie parser to get login id
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-// PG database client/connection setup
-const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
-
 // add database query functions here
-const { getUserById, generateGroceryList, getRecipesByUser, getGroceryListByUser, editGroceryList, deleteGroceryList, getUserDetails, addGroceryListItem, deleteRecipesForUser, addRecipesForUser, deleteGroceryListItem, getPantryByUser, deletePantryItem, editPantryItem, addPantryItem, generateJoke, getFavourites, addFavourites, deleteFavourites } = require("./db/database");
+const { generateGroceryList, getRecipesByUser, getGroceryListByUser, editGroceryList, deleteGroceryList, getUserDetails, addGroceryListItem, deleteRecipesForUser, addRecipesForUser, deleteGroceryListItem, getPantryByUser, deletePantryItem, editPantryItem, addPantryItem, generateJoke, getFavourites, addFavourites, deleteFavourites } = require("./db/database");
 
-const pool = new Pool(dbParams);
-pool.connect();
-const db = { getUserById, generateGroceryList, getRecipesByUser, getGroceryListByUser, editGroceryList, deleteGroceryList, getUserDetails, addGroceryListItem, deleteRecipesForUser, addRecipesForUser, deleteGroceryListItem, getPantryByUser, deletePantryItem, editPantryItem, addPantryItem, generateJoke, getFavourites, addFavourites, deleteFavourites };
-
-app.use(morgan("dev"));
-
-app.use(express.urlencoded({ extended: true }));
-
-app.use(express.static("public"));
+const db = { generateGroceryList, getRecipesByUser, getGroceryListByUser, editGroceryList, deleteGroceryList, getUserDetails, addGroceryListItem, deleteRecipesForUser, addRecipesForUser, deleteGroceryListItem, getPantryByUser, deletePantryItem, editPantryItem, addPantryItem, generateJoke, getFavourites, addFavourites, deleteFavourites };
 
 // Separated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -52,5 +40,5 @@ app.use("/api/search", search(db));
 app.use("/api/payment", payment(db));
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`Fork it Over listening on port ${PORT}`);
 });

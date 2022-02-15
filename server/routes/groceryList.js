@@ -129,7 +129,8 @@ module.exports = (db) => {
         // push all ingredient information of responses to an array
         for (const response of responses) {
           for (const ingredient of response.data.extendedIngredients) {
-            itemMeasuremementStrings.push(ingredient["originalString"]);
+            //changed from originalString to original
+            itemMeasuremementStrings.push(ingredient["original"]);
           }
         }
         return itemMeasuremementStrings; // array will have multiple of the same item with different measures

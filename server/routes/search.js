@@ -7,7 +7,7 @@ module.exports = (db) => {
   // search for ingredient item before adding it in pantry
   // http://localhost:4000/api/search/ingredientTerm
   router.get("/ingredientTerm", (req, res) => {
-    console.log("search", req.query)
+    // console.log("search", req.query)
     let data = req.query
     let ingredient = data.searchTerm.split(" ").join("-");
 
