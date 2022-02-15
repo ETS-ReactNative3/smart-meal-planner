@@ -13,7 +13,7 @@ module.exports = (db) => {
     db.getPantryByUser(userId)
       .then((results) => {
         console.log("GET to /pantry - Success.");
-        res.send({ result: [...results], key: "pantry" });
+        res.send({ result: results, key: "pantry" });
       })
       .catch(e => {
         console.error(e);

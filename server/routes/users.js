@@ -9,9 +9,6 @@ module.exports = (db) => {
   router.get("/login/:id", (req, res) => {
 
     let idToSet = req.params.id[req.params.id.length - 1];
-    console.log("THIS IS REQ DOT PARAMS", req.params.id)
-    console.log("ID TO SET IS", idToSet)
-
     res.cookie('user_id', idToSet);
     const userId = req.cookies["user_id"];
 
@@ -41,8 +38,6 @@ module.exports = (db) => {
     const userId = req.cookies["user_id"];
     let spoonacularId = req.body.spoonacularId;
 
-    console.log("THIS IS SPOONACULAR ID WHEN ADDING A FAVOURITE", req.body.spoonacularId)
-
     db.addFavourites(userId, spoonacularId)
       .then((results) => {
         res.send(results);
@@ -60,10 +55,6 @@ module.exports = (db) => {
 
     const userId = req.cookies["user_id"];
     let spoonacularId = req.body.spoonacularId;
-
-    console.log("THIS IS SPOONACULAR ID WHEN DELETING A FAVOURITE", req.body.spoonacularId)
-
-    console.log(spoonacularId)
 
     db.deleteFavourites(userId, spoonacularId)
       .then((results) => {

@@ -180,11 +180,6 @@ module.exports = (db) => {
           }
         })
 
-        console.log("ingredients that need to be converted from inital step", ingredientsToConvert)
-
-        // french bread = 18266/ it has a measure for one as ""
-        // console.log(JSON.stringify(groceryListForDb, null, 2))
-
         for (const item of pantryStore) {
           pantryStoreWithIdKeys[item.spoonacular_ingredient_id] = {
             name: item.item_name,
@@ -195,8 +190,6 @@ module.exports = (db) => {
 
         // show the kind of measurements the outputConversion will receive
         // console.log("PANTRY WITH ID KEYS", pantryStoreWithIdKeys)
-
-        // for some reason filter didnt work, but map does but has undefined for ones that dont fit the if statement
         let axiosIngredientInformation = groceryListForDb.map((groceryListForDbItems) => {
           if (ingredientsToConvert.includes(groceryListForDbItems.ingredientId)) {
             return {
@@ -212,8 +205,6 @@ module.exports = (db) => {
           return items !== undefined;
         })
 
-        console.log("These grocery ingredients are in my pantry->", noUndefinedAxios)
-
         // populating promises to return with noUndefinedAxios which has all the information it needs along with pantryStoreWithIdKeys to compare
         // https://api.spoonacular.com/recipes/convert?apiKey=8fc98d21e6c34ca0ba2782a7e1466616&ingredientName=parmesan cheese&sourceAmount=100&sourceUnit=g&targetUnit=kg
         promises = [];
@@ -223,15 +214,12 @@ module.exports = (db) => {
         return Promise.all(promises);
       })
       .then((result) => {
-        console.log("Resulting axios conversion for index 0 ->", (result.length > 0 ? result[0].data : []))
 
         let ingredientsToValidate = {}
         for (const itemIndex in result) {
-          console.log("INDEX IS " + itemIndex + " SUBTRACTING " + result[itemIndex].data.targetAmount + " FROM " + pantryStore[itemIndex].quantity)
 
           ingredientsToValidate[ingredientsToConvert[itemIndex]] =
           {
-            // rest of data is to validate if this is in sync
             name: pantryStoreWithIdKeys[ingredientsToConvert[itemIndex]].name,
             pantryAmount: pantryStoreWithIdKeys[ingredientsToConvert[itemIndex]].quantity,
             pantryMeasure: pantryStoreWithIdKeys[ingredientsToConvert[itemIndex]].measure,
